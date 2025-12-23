@@ -1,7 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 
-export async function PATCH(request: Request, { params }: { params: { ticketId: string } }) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ ticketId: string }> }) {
   try {
+    const { ticketId } = await params
     const { status } = await request.json()
 
     if (!status) {
@@ -13,7 +14,7 @@ export async function PATCH(request: Request, { params }: { params: { ticketId: 
     const { data, error } = await supabase
       .from("tickets")
       .update({ status, updated_at: new Date().toISOString() })
-      .eq("ticket_id", params.ticketId)
+      .eq("ticket_id", ticketId)
       .select()
       .single()
 

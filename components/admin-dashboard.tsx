@@ -82,7 +82,7 @@ export function AdminDashboard() {
     total: tickets.length,
     open: tickets.filter((t) => t.status === "open").length,
     resolved: tickets.filter((t) => t.status === "resolved").length,
-    critical: tickets.filter((t) => t.priority === "critical").length,
+    inProgress: tickets.filter((t) => t.status === "in-progress").length,
   }
 
   return (
@@ -112,8 +112,8 @@ export function AdminDashboard() {
             <div className="text-3xl font-bold text-green-600">{stats.resolved}</div>
           </Card>
           <Card className="p-4">
-            <div className="text-sm text-muted-foreground mb-1">Critical</div>
-            <div className="text-3xl font-bold text-red-600">{stats.critical}</div>
+            <div className="text-sm text-muted-foreground mb-1">In Progress</div>
+            <div className="text-3xl font-bold text-orange-600">{stats.inProgress}</div>
           </Card>
         </div>
       </div>
